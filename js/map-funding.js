@@ -40,7 +40,7 @@ var tooltip = d3.select("body")
 
 // create a quantize scale (function) to sort data values into buckets of color
 var color = d3.scale.quantize()
-	.range(colorbrewer.Greens[5])
+	.range(colorbrewer.Greens[10])
 
 // make a legend
 var legend = d3.select("#legend")
@@ -63,7 +63,7 @@ dropDown.on("change", function() {
 // function to calculate a color based on the ag productivity from data/us-ag-productivity-2004.csv file
 function calculate_color(d) {
 
-	var value = d.properties.selected_dataset;
+	var value = selected_dataset;
 
 	if (value) {
 		return color(value);
@@ -78,7 +78,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 	// set the input domain for the color scale
 	color.domain([
 		// d3.min(funding_data, function(d) {	return parseFloat(d.total); }),
-		50 , // 56% is lowest (WI)
+		0 , // 56% is lowest (WI)
 		d3.max(funding_data, function(d) { return (d.composite); })
 		]);
 

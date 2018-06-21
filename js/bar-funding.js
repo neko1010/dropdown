@@ -95,7 +95,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(error,
 			return tooltip_bar.style("visibility", "visible")
 		  		.style("top", (d3.event.pageY + 10) + "px")
 		  		.style("left", (d3.event.pageX + 10) + "px")
-				.text(d3.format(".2f,%")(selected_dataset); //(d.composite))
+				.text(d3.format(".2f,%")(selected_dataset)); //(d.composite))
 		})
 		.on("mouseout", function(d) {
 			return tooltip_bar.style("visibility", "hidden")

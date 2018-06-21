@@ -56,7 +56,7 @@ dropDown.on("change", function() {
 
 	selected_dataset = d3.event.target.value;
 
-	plot.call(updateFill, selected_dataset)
+	plot.call(calculate_color, selected_dataset)
 
 });
 

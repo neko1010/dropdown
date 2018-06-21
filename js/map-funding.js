@@ -95,7 +95,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 
 		if (error) { return console.error(error) };	
 
-		// merge the ag. data and geojson
+		// merge the data and geojson
 		for (var i = 0; i < funding_data.length; i++) {
 
 			// get the state name
@@ -115,7 +115,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 
 				if (funding_data_state === json_data_state) {
 
-					// copy the ag data value into the the json
+					// copy the data value into the the json
 					json.features[j].properties.wsc = wsc_value;
 					json.features[j].properties.composite = composite_data_value;
 					json.features[j].properties.cost_center = cost_center_data_value;
@@ -135,13 +135,13 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 			.attr("d", path)
 			.attr("fill", calculate_color);
 		plot = svg.selectAll("path")
-                      .data(json.features)
-                      .enter()
-                      .append("path")
-                      .attr("d", path)
-                      .attr("stroke", "#808080")
-                      .attr("fill", "#b3b3b3")
-                      .call(calculate_color, selected_dataset)
+            .data(json.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .attr("stroke", "#808080")
+            .attr("fill", "#b3b3b3")
+            .call(calculate_color, selected_dataset)
 		svg.selectAll("path")
 			.data(json.features)
 			.on("mouseover", function(d) {

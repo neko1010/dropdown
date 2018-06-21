@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>USGS Water Science Centers Overhead Map</title>
+    <script src="js/d3.js"></script>
+    <script src="js/colorbrewer.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/colorbrewer.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>Interactive USGS Funding Map and Bar Charts</h1>
+                <h3>By <a href="https://github.com/neko1010/" target="_blank">Nick Kolarik and Jeremiah Lant</a></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Description</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                Interactive map and chart of overhead for USGS Water Science Centers by state during the year 2018. The data is provided by the <a href="http://www.usgs.gov/" target="_blank">United States Geological Survey (USGS)</a>. The choropleth map and bar chart show total overhead percentages by state according to the associated Water Science Center (WSC). 
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Map of Overhead By State </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="legend">
+                <p>Overhead (%)</p>
+            </div>
+        </div>
+		<select id="dropdown"></select>
+        <div class="row">
+            <div class="col-md-12" id="map">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Bar Chart of Overhead By State</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="checkbox-sort"><input type="checkbox"> Sort overhead</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="bar-chart">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+    </div>
+    <script src="js/bar-funding.js"></script>
+    <script src="js/map-funding.js"></script>
+	<script src = "dropdown_options.js"></script> 
+</body>
+</html>

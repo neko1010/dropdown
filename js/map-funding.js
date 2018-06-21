@@ -1,20 +1,3 @@
-var dropdown_options = [
-	{ value: "composite",
-		text: "Total Overhead (%)" },
-	{ value: "cost_center",
-		text: "Cost Center Overhead (%)"},
-	{ value: "facility",
-		text: "Facility Overhead (%)"}]
-// populate drop-down
-d3.select("#dropdown")
-	.selectAll("option")
-	.data(dropdown_options)
-	.enter()
-	.append("option")
-	.attr("value", function(option) { return option.value; })
-	.text(function(option) { return option.text; });
-// initial dataset on load
-var selected_dataset = "composite";
 // set width and height of svg element
 var width = 1140;
 var height = 500;
@@ -47,31 +30,10 @@ var legend = d3.select("#legend")
 	.append("ul")
 	.attr("class", "list-inline");
 
-var dropDown = d3.select("#dropdown");
-
-dropDown.on("change", function() {
-
-	// newly selected dataset includes downtown
-	//d3.select("#downtown")
-
-	selected_dataset = d3.event.target.value;
-
-	plot.call(updateFill, selected_dataset)
-
-});
-function updateFill(selection, selected_dataset) {
-
-            var d_extent = d3.extent(selection.data(), function(d) {
-                return parseFloat(d.properties[selected_dataset]);
-            });
-
-            rescaleFill(selection, d_extent);
-        }
-
-// function to calculate a color based on the data/2018-usgs-water-science-centers-total-funding.csv file
+// function to calculate a color based on the ag productivity from data/us-ag-productivity-2004.csv file
 function calculate_color(d) {
 
-	var value = d.selected_dataset;
+	var value = d.properties.composite;
 
 	if (value) {
 		return color(value);
@@ -80,14 +42,14 @@ function calculate_color(d) {
 	}
 }
 
-// load the data
+// load the agriculture data
 d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(funding_data) {
 
 	// set the input domain for the color scale
 	color.domain([
-		d3.min(funding_data, function(d) {	return parseFloat(d.selected_dataset); }),
-		//0 , // 56% is lowest (WI)
-		d3.max(funding_data, function(d) { return (d.selected_dataset); })
+		// d3.min(funding_data, function(d) {	return parseFloat(d.total); }),
+		50 , // 56% is lowest (WI)
+		d3.max(funding_data, function(d) { return (d.composite); })
 		]);
 
 	// load the data file; note path is relative from index.html
@@ -95,14 +57,14 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 
 		if (error) { return console.error(error) };	
 
-		// merge the data and geojson
+		// merge the ag. data and geojson
 		for (var i = 0; i < funding_data.length; i++) {
 
 			// get the state name
 			var funding_data_state = funding_data[i].state;
 
 			// get the data values and convert from string to float
-			var wsc_value = (funding_data[i].wsc);//leave as string
+			var wsc_value = (funding_data[i].wsc);
 			var composite_data_value = parseFloat(funding_data[i].composite);
 			var cost_center_data_value = parseFloat(funding_data[i].cost_center);
 			var facility_data_value = parseFloat(funding_data[i].facility);
@@ -115,7 +77,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 
 				if (funding_data_state === json_data_state) {
 
-					// copy the data value into the the json
+					// copy the ag data value into the the json
 					json.features[j].properties.wsc = wsc_value;
 					json.features[j].properties.composite = composite_data_value;
 					json.features[j].properties.cost_center = cost_center_data_value;
@@ -134,14 +96,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 			.append("path")
 			.attr("d", path)
 			.attr("fill", calculate_color);
-		plot = svg.selectAll("path")
-            .data(json.features)
-            .enter()
-            .append("path")
-            .attr("d", path)
-            .attr("stroke", "#808080")
-            .attr("fill", "#b3b3b3")
-            .call(calculate_color, selected_dataset)
+
 		svg.selectAll("path")
 			.data(json.features)
 			.on("mouseover", function(d) {
@@ -178,14 +133,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 		  	.on("mousemove", function() {
 		  		return tooltip.style("top", (event.pageY + 10) + "px").style("left", (event.pageX + 10) + "px");
 		  	})
-/* 		function updateFill(selection, selected_dataset) {
-
-            var d_extent = d3.extent(selection.data(), function(d) {
-                return parseFloat(d.properties[selected_dataset]);
-            });
-
-            rescaleFill(selection, d_extent);
-        } */
+		
 		var keys = legend.selectAll("li.key")
 			.data(color.range())
 

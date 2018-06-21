@@ -126,7 +126,14 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 			.append("path")
 			.attr("d", path)
 			.attr("fill", calculate_color);
-
+		plot = svg.selectAll("path")
+                      .data(json.features)
+                      .enter()
+                      .append("path")
+                      .attr("d", path)
+                      .attr("stroke", "#808080")
+                      .attr("fill", "#b3b3b3")
+                      .call(calculate_color, selected_dataset)
 		svg.selectAll("path")
 			.data(json.features)
 			.on("mouseover", function(d) {

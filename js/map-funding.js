@@ -71,10 +71,10 @@ function updateFill(selection, selected_dataset) {
 // function to calculate a color based on the data/2018-usgs-water-science-centers-total-funding.csv file
 function calculate_color(d) {
 
-	//var value = selected_dataset;
+	var value = d.selected_dataset;
 
-	if (selected_dataset) {
-		return color(selected_dataset);
+	if (value) {
+		return color(value);
 	} else {
 		return "#ccc"; // grayish
 	}

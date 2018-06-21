@@ -7,7 +7,17 @@ var dropdown_options = [
 	{ value: "facility",
 		text: "Facility Overhead (%)"}]
 		
-var selected_dataset= "composite";
+d3.select("#dropdown")
+          .selectAll("option")
+          .data(dropdown_options)
+          .enter()
+          .append("option")
+          .attr("value", function(option) { return option.value; })
+          .text(function(option) { return option.text; });
+
+        // initial dataset on load
+        var selected_dataset = "composite";
+		
 		
 // set margins for svg
 var margin = {
@@ -86,10 +96,10 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(error,
 		})
 		.attr("width", x_scale.rangeBand())
 		.attr("y", function(d) {
-			return y_scale(selected_dataset); //(d.composite);
+			return y_scale(d.composite);
 		})
 		.attr("height", function(d) {
-			return height_bar - y_scale(selected_dataset);//(d.composite);
+			return height_bar - y_scale(d.composite);
 		})
 		.on("mouseover", function(d) {
 			return tooltip_bar.style("visibility", "visible")

@@ -59,7 +59,7 @@ dropDown.on("change", function() {
 	plot.call(updateFill, selected_dataset)
 
 });
-function updateFill(selection, selected_dataset) {
+/* function updateFill(selection, selected_dataset) {
 
             var d_extent = d3.extent(selection.data(), function(d) {
                 return parseFloat(d.properties[selected_dataset]);
@@ -67,7 +67,7 @@ function updateFill(selection, selected_dataset) {
 
             rescaleFill(selection, d_extent);
         }
-
+ */
 // function to calculate a color based on the data/2018-usgs-water-science-centers-total-funding.csv file
 function calculate_color(d) {
 
@@ -178,7 +178,14 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(fundin
 		  	.on("mousemove", function() {
 		  		return tooltip.style("top", (event.pageY + 10) + "px").style("left", (event.pageX + 10) + "px");
 		  	})
-		
+			function updateFill(selection, selected_dataset) {
+
+				var d_extent = d3.extent(selection.data(), function(d) {
+					return parseFloat(d.properties[selected_dataset]);
+				});
+
+				rescaleFill(selection, d_extent);
+        }
 		var keys = legend.selectAll("li.key")
 			.data(color.range())
 

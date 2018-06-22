@@ -1,3 +1,4 @@
+var selected_dataset = "composite"
 //dropdown menu
 var dropdown_options = [
 	{ value: "composite",
@@ -16,7 +17,7 @@ d3.select("#dropdown")
           .text(function(option) { return option.text; });
 
         // initial dataset on load
-        var selected_dataset = "composite";
+        var selected_dataset = value;
 		
 		
 // set margins for svg
@@ -63,7 +64,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(error,
 	}));
 
 	y_scale.domain([0, d3.max(data, function(d) {
-		return parseFloat(d.composite);
+		return parseFloat(d.selected_dataset);
 	})]);
 
 	svg_bar_chart.append("g")
@@ -96,27 +97,35 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(error,
 		})
 		.attr("width", x_scale.rangeBand())
 		.attr("y", function(d) {
-			return y_scale(d.composite);
+			return y_scale(d.selected_dataset);
 		})
 		.attr("height", function(d) {
-			return height_bar - y_scale(d.composite);
+			return height_bar - y_scale(d.selected_dataset;
 		})
 		.on("mouseover", function(d) {
 			return tooltip_bar.style("visibility", "visible")
 		  		.style("top", (d3.event.pageY + 10) + "px")
 		  		.style("left", (d3.event.pageX + 10) + "px")
-				.text(d3.format(".2f,%")(selected_dataset)); //(d.composite))
+				.text(d3.format(".2f,U+0025")(d.selected_dataset))
+				console.log(d.selected_dataset)
 		})
 		.on("mouseout", function(d) {
 			return tooltip_bar.style("visibility", "hidden")
 		})
 
+		
+	d3.select("input").on("change_data", change_data);
+	
+	function change_data() {
+		
+		
+	}
 	d3.select("input").on("change", change);
 
 	function change() {
 		// if the value of the input checkbox is checked, then x_scale.domain is sorted by highest to lowest values, otherwise it is sorted alphabetically as original data
 		var x_scale_0 = x_scale.domain(data.sort(this.checked
-			? function(a, b) { return b.composite - a.composite; }
+			? function(a, b) { return b.selected_dataset - a.selected_dataset; }
 			: function(a, b) { return d3.ascending(a.state, b.state); })
 			.map(function(d) {return d.state;} ))
 			.copy();

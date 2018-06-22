@@ -17,7 +17,7 @@ d3.select("#dropdown")
           .text(function(option) { return option.text; });
 
         // initial dataset on load
-        var selected_dataset = value;
+        var selected_dataset = option.value;
 		
 		
 // set margins for svg

@@ -17,7 +17,7 @@ d3.select("#dropdown")
           .text(function(option) { return option.text; });
 
         // initial dataset on load
-        var selected_dataset = .attr(option.value);
+        var selected_dataset = change_data[newData];
 		
 		
 // set margins for svg
@@ -117,8 +117,8 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(error,
 	d3.select("input").on("change_data", change_data);
 	
 	function change_data() {
-		var newdata = d3.select(this).property('value'),
-			newData = selected_dataset[newdata];
+		var newData = d3.select(this).property('value'),
+			newData = selected_dataset[newData];
 		
 	}
 	d3.select("input").on("change", change);

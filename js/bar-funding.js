@@ -100,7 +100,7 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(error,
 			return y_scale(d.selected_dataset);
 		})
 		.attr("height", function(d) {
-			return height_bar - y_scale(d.selected_dataset;
+			return height_bar - y_scale(d.selected_dataset);
 		})
 		.on("mouseover", function(d) {
 			return tooltip_bar.style("visibility", "visible")
@@ -117,7 +117,8 @@ d3.csv("data/2018-usgs-water-science-centers-total-funding.csv", function(error,
 	d3.select("input").on("change_data", change_data);
 	
 	function change_data() {
-		
+		var newdata = d3.select(this).property('value'),
+			newData = selected_dataset[newdata];
 		
 	}
 	d3.select("input").on("change", change);
